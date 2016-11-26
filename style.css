@@ -1,0 +1,23 @@
+.owned {
+    background-color: #04ff04;
+}
+
+.friend-th {
+    width: 64px;
+}
+.friend-th img {
+    margin: -8px;
+}
+
+.fixed-table-body {
+    height: auto;
+}
+.fixed-table-continaer {
+    height: auto;
+    padding-bottom: initial;
+}
+
+#friends-form .dropdown-menu img {
+    height: 24px;
+    width: 24px;
+}

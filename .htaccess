@@ -1,0 +1,9 @@
+AddType application/x-httpd-php70 .php
+
+<Files ~ "(\.htaccess|\.git.*|share|vendor|composer.*|secrets\.json)">
+order allow,deny
+deny from all
+</Files>
+
+Options All -Indexes
+ 
