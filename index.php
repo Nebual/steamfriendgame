@@ -18,6 +18,9 @@ require_once('global.php');
 	<link rel="stylesheet" href="lib/bootstrap-table-sticky-header.css">
 	<script src="lib/bootstrap-table-sticky-header.js" type="text/javascript"></script>
 
+	<link rel="stylesheet" href="lib/rangeslider.css">
+	<script src="lib/rangeslider.min.js" type="text/javascript"></script>
+
 	<link rel="stylesheet" href="style.css" />
 </head>
 <body>

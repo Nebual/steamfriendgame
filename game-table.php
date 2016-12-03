@@ -2,6 +2,8 @@
 require_once('global.php');
 
 if(!empty($_SESSION['steam_id'])) {
+
+	$multiplayer_tags = SteamAPIWrapper::get_multiplayer_games();
 	$games = SteamAPIWrapper::get_player_games($_SESSION['steam_id'], true);
 	$prices = SteamAPIWrapper::get_prices(array_keys($games));
 
@@ -9,6 +11,7 @@ if(!empty($_SESSION['steam_id'])) {
 	$current_price_grand_total = 0;
 	$rows = '';
 	foreach($games as $appid => $game) {
+		$is_multiplayer = in_array((int)$appid, $multiplayer_tags, true) ? '1' : '';
 		if(!empty($prices[$appid])) {
 			$max_price_grand_total += $prices[$appid]['initial'];
 			$current_price_grand_total += $prices[$appid]['final'];
@@ -21,7 +24,7 @@ if(!empty($_SESSION['steam_id'])) {
 		$playtime_hours = number_format($game['playtime_forever']/60, 1, '.', '');
 
 		$rows .= "
-			<tr>
+			<tr data-multiplayer='{$is_multiplayer}'>
 				<td><a href='http://store.steampowered.com/app/{$appid}/'>{$game['name']}</a></td>
 				<td>{$price}</td>
 				<td>{$percent}</td>
@@ -41,6 +44,11 @@ if(!empty($_SESSION['steam_id'])) {
 		<br>Of course, you probably bought half these off Humble Bundle anyway.
 	</p>
 
+	<label><input type="checkbox" name="multiplayer-only" class="multiplayer-only" value="1"/> Multiplayer Only</label><br>
+	<div class="min-ownership-container">
+		<label>Minimum Ownership</label>: <output></output>
+		<input id="min-count" type="range" min="0" max="<?=count($_SESSION['selected-friends']??[])?>" value="0" style="width: 200px;" />
+	</div>
 
 	<table id='my-games' class='table' data-sort-name="hours" data-sort-order="desc" data-sticky-header="true">
 		<thead>
@@ -60,6 +68,7 @@ if(!empty($_SESSION['steam_id'])) {
 	</table>
 	<script>
 		$('#my-games').bootstrapTable();
+		$('input[type="range"]').rangeslider({polyfill: false});
 
 		function numericOnly(a, b) {
 			function stripNonNumber(s) {
@@ -69,6 +78,29 @@ if(!empty($_SESSION['steam_id'])) {
 
 			return stripNonNumber(a) - stripNonNumber(b);
 		}
+
+		function filter_games() {
+			var min = $('#min-count').val() || 0;
+			$('#min-count').parent().find('output').text(min);
+			var multiplayer_only = $('.multiplayer-only').is(':checked');
+			$('#my-games tbody').find('tr').each(function() {
+				var visible = true;
+				if(visible) {
+					if (multiplayer_only) {
+						visible = $(this).data('multiplayer') == '1';
+					}
+				}
+				if(visible) {
+					visible = $(this).find('.owned').length >= min;
+				}
+				$(this).toggle(visible);
+			});
+		}
+		$('#min-count').on('input', filter_games).trigger('input');
+		$('.multiplayer-only').change(filter_games);
+		$('#my-games').on('post-body.bs.table', function() {
+			filter_games();
+		});
 	</script>
 	<?
 }

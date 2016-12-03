@@ -95,4 +95,16 @@ abstract class SteamAPIWrapper {
 		return $ret;
 	}
 
+	public static function get_multiplayer_games() : array
+	{
+		/* Populated Dec 3rd 2016 from https://steamdb.info/tags/?tagid=3859
+		var mp_games = [];
+		$('.app').each(function() {
+			mp_games.push($(this).data('appid'));
+		});
+		JSON.stringify(mp_games);
+		 */
+		return json_decode(file_get_contents('share/multiplayer.json'), true);
+	}
+
 }

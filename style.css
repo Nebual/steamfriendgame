@@ -21,3 +21,17 @@
     height: 24px;
     width: 24px;
 }
+.min-ownership-container {
+    line-height: 45px;
+}
+.min-ownership-container label {
+    margin-bottom: 0;
+}
+.min-ownership-container .rangeslider {
+    width: 200px;
+    display: inline-block;
+    top: 5px;
+}
+.min-ownership-container output {
+    display: inline-block;
+}
