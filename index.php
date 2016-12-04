@@ -15,6 +15,8 @@ require_once('global.php');
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/css/bootstrap-select.min.css">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/js/bootstrap-select.min.js"></script>
 
+	<script src="lib/jquery.ba-bbq.min.js" type="text/javascript"></script>
+
 	<link rel="stylesheet" href="lib/bootstrap-table-sticky-header.css">
 	<script src="lib/bootstrap-table-sticky-header.js" type="text/javascript"></script>
 
@@ -22,6 +24,7 @@ require_once('global.php');
 	<script src="lib/rangeslider.min.js" type="text/javascript"></script>
 
 	<link rel="stylesheet" href="style.css" />
+	<script src="lib.js" type="text/javascript"></script>
 </head>
 <body>
 <div class="container">
