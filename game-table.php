@@ -39,14 +39,14 @@ if(!empty($_SESSION['steam_id'])) {
 	?>
 	<p>
 		You have <?=count($games)?> games in your Steam library.
-		<br>If you purchased your entire library right now, it'd cost you: $<?=number_format($current_price_grand_total / 100, 2)?>.
+		<br>Purchasing your entire library right costs: $<?=number_format($current_price_grand_total / 100, 2)?>.
 		<br>The current 'full retail' value is: $<?=number_format($max_price_grand_total / 100, 2)?>.
-		<br>Of course, you probably bought half these off Humble Bundle anyway.
+		<br><span style="font-size: 80%;">Of course, you probably bought half these off Humble Bundle anyway.</span>
 	</p>
 
 	<label><input type="checkbox" name="multiplayer-only" class="multiplayer-only" value="1"/> Multiplayer Only</label><br>
 	<div class="min-ownership-container">
-		<label>Minimum Ownership</label>: <output></output>
+		<label>Minimum Owners</label>: <output></output>
 		<input id="min-count" type="range" min="0" max="<?=count($_SESSION['selected-friends']??[])?>" value="0" style="width: 200px;" />
 	</div>
 
@@ -102,6 +102,9 @@ if(!empty($_SESSION['steam_id'])) {
 		$('#my-games').on('post-body.bs.table', function() {
 			filter_games();
 		});
+		if($('.friend-th').length === 0) {
+			$('.min-ownership-container').hide();
+		}
 	</script>
 	<?
 }

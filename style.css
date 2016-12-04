@@ -35,3 +35,28 @@
 .min-ownership-container output {
     display: inline-block;
 }
+
+@media screen and (max-width: 600px) {
+    body > .container {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    .fixed-table-container thead th .th-inner {
+        white-space: initial;
+
+    }
+    .fixed-table-container thead th .sortable {
+        padding: 8px 11px 8px 4px;
+        background-position-x: calc(100% + 4px);
+    }
+    #my-games {
+        font-size: 12px;
+    }
+    #my-games > tbody > tr > td {
+        padding: 4px;
+    }
+    .friend-th img {
+        width: 24px;
+        height: 24px;
+    }
+}

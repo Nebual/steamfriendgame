@@ -3,6 +3,9 @@ require_once('global.php');
 ?>
 <html>
 <head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<script src="//code.jquery.com/jquery-3.1.1.js" integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA=" crossorigin="anonymous"></script>
 	<script src="//cdn.intercoolerjs.org/intercooler-1.0.3.min.js"></script>
 	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -31,7 +34,7 @@ require_once('global.php');
 	<h1>Steam Friend Game thing</h1>
 	<form id="steamname-form" ic-post-to="ic.php?action=steamname" ic-indicator="#steamname-loading" style="max-width: 200px;">
 		<div class="form-group">
-			<label>Your Steam Vanity URL name</label>
+			<label>Steam Vanity URL name</label>
 			<i id="steamname-loading" class="fa fa-spinner fa-spin" style="display:none"></i>
 			<input type="text" class="form-control" name="steamname" value="<?= !empty($_SESSION['steamname']) ? $_SESSION['steamname'] : ''?>"/>
 		</div>
