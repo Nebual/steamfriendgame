@@ -16,15 +16,15 @@ if(!empty($_SESSION['steam_id'])) {
 			$max_price_grand_total += $prices[$appid]['initial'];
 			$current_price_grand_total += $prices[$appid]['final'];
 			$price = '$' . number_format($prices[$appid]['final'] / 100, 2) . " ({$prices[$appid]['currency']})";
-			$percent = $prices[$appid]['discount_percent'] . '%';
 		} else {
-			$price = '';
-			$percent = '';
+			$price = '-';
 		}
-		$playtime_hours = number_format($game['playtime_forever']/60, 1, '.', '');
+		$percent = !empty($prices[$appid]['discount_percent']) ? ($prices[$appid]['discount_percent'] . '%') : '-';
+		$playtime_hours = ((($game['playtime_forever']??0)/60) > 0.3) ? number_format($game['playtime_forever']/60, 1, '.', '') : '-';
 
 		$rows .= "
 			<tr data-multiplayer='{$is_multiplayer}'>
+				<td>{$game['name']}</td>
 				<td><a href='http://store.steampowered.com/app/{$appid}/'>{$game['name']}</a></td>
 				<td>{$price}</td>
 				<td>{$percent}</td>
@@ -53,7 +53,8 @@ if(!empty($_SESSION['steam_id'])) {
 	<table id='my-games' class='table' data-sort-name="hours" data-sort-order="desc" data-sticky-header="true">
 		<thead>
 		<tr>
-			<th data-field='name' data-sortable='true' data-sorter='numericOnly'>Name</th>
+			<th data-field='name_plain' data-sortable='true' data-visible="false"></th>
+			<th data-field='name' data-sortable='true' data-sort-name="name_plain" data-order="desc">Name</th>
 			<th data-field='price' data-sortable='true' data-sorter='numericOnly'>Current Price</th>
 			<th data-field='savings' data-sortable='true' data-sorter='numericOnly'>Savings</th>
 			<th data-field='hours' data-sortable='true' data-sorter='numericOnly'>Hours</th>
@@ -73,7 +74,7 @@ if(!empty($_SESSION['steam_id'])) {
 		function numericOnly(a, b) {
 			function stripNonNumber(s) {
 				s = s.replace(new RegExp(/[^0-9]/g), "");
-				return parseInt(s, 10);
+				return parseInt(s, 10) || 0;
 			}
 
 			return stripNonNumber(a) - stripNonNumber(b);
