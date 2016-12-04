@@ -1,6 +1,8 @@
 <?php
 require_once('global.php');
-
+?>
+<div id="games-container" ic-deps="friend-list.php" ic-src="game-table.php" ic-replace-target="true" ic-indicator="#game-table-loading">
+<?
 if(!empty($_SESSION['steam_id'])) {
 
 	$multiplayer_tags = SteamAPIWrapper::get_multiplayer_games();
@@ -108,3 +110,5 @@ if(!empty($_SESSION['steam_id'])) {
 	</script>
 	<?
 }
+?>
+</div>

@@ -32,21 +32,13 @@ require_once('global.php');
 <body>
 <div class="container">
 	<h1>Steam Friend Game thing</h1>
-	<form id="steamname-form" ic-post-to="ic.php?action=steamname" ic-indicator="#steamname-loading" style="max-width: 200px;">
-		<div class="form-group">
-			<label>Steam Vanity URL name</label>
-			<i id="steamname-loading" class="fa fa-spinner fa-spin" style="display:none"></i>
-			<input type="text" class="form-control" name="steamname" value="<?= !empty($_SESSION['steamname']) ? $_SESSION['steamname'] : ''?>"/>
-		</div>
-	</form>
-	<form id="friends-form" ic-post-to="ic.php?action=friends" ic-indicator="#steamname-loading">
-		<div ic-deps="ic.php?action=steamname" ic-src="friend-list.php" <?= !empty($_SESSION['steamname']) ? "ic-trigger-on='load'" : ''?>>
-		</div>
-	</form>
+	<? include('steamid-input.php'); ?>
+	<div ic-deps="steamid-input.php" ic-src="friend-list.php" ic-indicator="#steamname-loading">
+		<? include('friend-list.php'); ?>
+	</div>
 
 	<p id="game-table-loading" style="display: none;"><i class="fa fa-spinner fa-spin fa-2x"></i> Loading games...</p>
-	<div ic-deps="ic.php?action=steamname" ic-src="game-table.php" <?= !empty($_SESSION['steamname']) ? "ic-trigger-on='load'" : ''?> ic-indicator="#game-table-loading">
-	</div>
+	<? include('game-table.php'); ?>
 </div>
 
 </body>
